@@ -40,12 +40,21 @@ public class UserItem extends BaseTimeEntity {
     @Column(nullable = false)
     private UserRole role;
 
+    @Column
+    private SocialType socialType;
+
+    @Column
+    private String socialId;
+
+    @Column
+    private String refreshToken;
+
     public boolean isAdmin() {
         return this.role.name().equals("ROLE_ADMIN");
     }
 
     public void updatePassword(String password) {
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
 
     public void updateName(String name) {
@@ -54,9 +63,5 @@ public class UserItem extends BaseTimeEntity {
 
     public void updateEmail(String email) {
         this.email = email;
-    }
-
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
     }
 }
