@@ -87,7 +87,7 @@ public class BoardController {
                                  @AuthenticationPrincipal CustomUserDetails userDetails) {
         Long userId = null;
         if (userDetails != null) {
-            userId = userDetails.getUserItem().getId();
+            userId = userDetails.getId();
         }
 
         BoardItemWithAuthorName b = boardService.showSingleContent(id, userId);
@@ -107,9 +107,7 @@ public class BoardController {
     @PostMapping("write")
     public String writeBoardItem(@ModelAttribute BoardForm insertForm, @AuthenticationPrincipal CustomUserDetails userDetails,
                                  HttpServletRequest request) {
-        UserItem userItem = userDetails.getUserItem();
-
-        BoardItem board = boardService.createBoard(insertForm, userItem.getId());
+        BoardItem board = boardService.createBoard(insertForm, userDetails.getId());
 
         if(board == null) {
             throw new BoardRequestFailException("요청 실패: 새 글이 업데이트 되지 않음");
@@ -123,9 +121,7 @@ public class BoardController {
 
     @GetMapping("{category}/insert")
     public String toFormPage(@ModelAttribute BoardForm insertForm, @PathVariable String category, Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        UserItem userItem = userDetails.getUserItem();
-
-        insertForm.addAuthor(userItem);
+        insertForm.addAuthor(userDetails.getId());
         insertForm.setCategory(category);
         model.addAttribute("insertForm", insertForm);
         return "board/insert";
@@ -139,7 +135,7 @@ public class BoardController {
             throw new BoardRequestFailException("해당 게시글을 찾을 수 없습니다.");
         }
 
-        if (userDetails.getUserItem().isAdmin() && !Objects.equals(userDetails.getUserItem().getId(), item.getWriter().getId())) {
+        if (userDetails.isAdmin() && !Objects.equals(userDetails.getId(), item.getWriter().getId())) {
             throw new AccessDeniedException("관리자 혹은 작성자만 수정할 수 있습니다.");
         }
         model.addAttribute("boardItem", item);
@@ -154,11 +150,10 @@ public class BoardController {
 
     @GetMapping("{category}/delete/{id}")
     public String delete(@PathVariable Long id, Model model, @PathVariable String category, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        if (userDetails == null || userDetails.getUserItem() == null) {
+        if (userDetails == null || userDetails.getUsername() == null) {
             throw new AccessDeniedException("로그인이 필요합니다.");
         }
-        UserItem userItem = userDetails.getUserItem();
-        if(userDetails.getUserItem().isAdmin() && !Objects.equals(userItem.getId(), boardService.getBoardItem(id).getWriter().getId())) {
+        if(userDetails.isAdmin() && !Objects.equals(userDetails.getId(), boardService.getBoardItem(id).getWriter().getId())) {
             throw new AccessDeniedException("작성자만 수정할 수 있습니다.");
         }
         
@@ -170,26 +165,22 @@ public class BoardController {
     public String addComment(@ModelAttribute CommentForm commentForm,
                              @PathVariable("boardId") Long boardId,
                              @AuthenticationPrincipal CustomUserDetails userDetails) {
-        if (userDetails == null || userDetails.getUserItem() == null) {
+        if (userDetails == null) {
             throw new AccessDeniedException("로그인이 필요합니다.");
         }
 
-        UserItem userItem = userDetails.getUserItem();
-
-        commentForm.addMember(userItem.getId());
+        commentForm.addMember(userDetails.getId());
         commentService.createComment(commentForm);
         return String.format("redirect:/board/%d", boardId);
     }
 
     @PostMapping("comment/delete/{commentId}")
     public String deleteComment(@PathVariable("commentId") Long commentId, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        if (userDetails == null || userDetails.getUserItem() == null) {
+        if (userDetails == null) {
             throw new AccessDeniedException("로그인이 필요합니다.");
         }
 
-        UserItem userItem = userDetails.getUserItem();
-
-        if(userDetails.getUserItem().isAdmin() && !Objects.equals(userItem.getId(), commentService.getCommentInfo(commentId).getWriter().getId())) {
+        if(userDetails.isAdmin() && !Objects.equals(userDetails.getId(), commentService.getCommentInfo(commentId).getWriter().getId())) {
             throw new AccessDeniedException("작성자만 삭제할 수 있습니다.");
         }
 
@@ -201,13 +192,11 @@ public class BoardController {
     public String updateComment(@PathVariable("commentId") Long commentId,
                                 @RequestParam("content") String content,
                                 @AuthenticationPrincipal CustomUserDetails userDetails) {
-        if (userDetails == null || userDetails.getUserItem() == null) {
+        if (userDetails == null) {
             throw new AccessDeniedException("로그인이 필요합니다.");
         }
 
-        UserItem userItem = userDetails.getUserItem();
-
-        if(userDetails.getUserItem().isAdmin() && !Objects.equals(userItem.getId(), commentService.getCommentInfo(commentId).getWriter().getId())) {
+        if(userDetails.isAdmin() && !Objects.equals(userDetails.getId(), commentService.getCommentInfo(commentId).getWriter().getId())) {
             throw new AccessDeniedException("작성자만 수정할 수 있습니다.");
         }
 

@@ -1,33 +1,37 @@
 package kr.luciddevlog.saebyukLog.user.entity;
 
+import kr.luciddevlog.saebyukLog.user.dto.UserInfoDto;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
     // Refactor 필요: UserItem 대신 최소한의 데이터만 가지는 DTO로 대체해야: 비밀번호, Username, Role
-    private final UserItem userItem;
+    private Long id;
+    private String username;
+    private String password;
+    private final UserInfoDto userInfo;
+    private Collection<? extends GrantedAuthority> authorities;
+    private boolean isAdmin;
 
     public CustomUserDetails(UserItem userItem) {
-        this.userItem = userItem;
-    }
-
-    @Override
-    public String getPassword() {
-        return userItem.getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return userItem.getUsername();
+        this.id = userItem.getId();
+        this.username = userItem.getUsername();
+        this.password = userItem.getPassword();
+        this.authorities = Collections.singletonList(new SimpleGrantedAuthority(userItem.getRole().name()));
+        this.userInfo = new UserInfoDto(userItem.getName(), userItem.getEmail(), userItem.getCreatedAt());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(this.userItem.getRole().name()));
+        return authorities;
     }
 
     @Override
@@ -48,11 +52,6 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    // UserItem의 추가 정보에 접근하기 위한 메서드
-    public UserItem getUserItem() {
-        return userItem;
     }
 
 }

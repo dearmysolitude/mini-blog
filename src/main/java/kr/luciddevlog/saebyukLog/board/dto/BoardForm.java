@@ -27,8 +27,8 @@ public class BoardForm {
         this.category = category;
     }
 
-    public void addAuthor(UserItem member) {
-        this.memberId = member.getId();
+    public void addAuthor(Long id) {
+        this.memberId = id;
     }
     public void setCategory(String category) {
         if(category.equalsIgnoreCase("notice")) { // 대소문자 구분 없이

@@ -27,7 +27,13 @@ public class NavbarAndUserInfoInterceptor implements HandlerInterceptor {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal() instanceof CustomUserDetails) {
                 CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-                modelAndView.addObject("user", new MemberInfoDto(userDetails.getUserItem()));
+                modelAndView.addObject("user", MemberInfoDto.builder()
+                        .id(userDetails.getId())
+                        .userName(userDetails.getUsername())
+                        .name(userDetails.getUserInfo().getName())
+                        .createdAt(userDetails.getUserInfo().getCreatedAt())
+                        .email(userDetails.getUserInfo().getEmail())
+                        .build());
             }
         }
     }
