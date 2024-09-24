@@ -20,36 +20,4 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/vip")
-    public String vipRoom() {
-        return "/a_01";
-    }
-
-    @RequestMapping("/deluxe")
-    public String deluxRoom() {
-        return "/a_02";
-    }
-
-    @RequestMapping("/oceanview")
-    public String regularRoom() {
-        return "/a_03";
-    }
-
-
-    @RequestMapping("/location")
-    public String location() {
-        return "/b_01";
-    }
-
-    @RequestMapping("/san")
-    public String nearSpot1() {
-        return "/c_01";
-    }
-
-    @RequestMapping("/bada")
-    public String nearSpot2() {
-        return "/c_02";
-    }
-
-
 }

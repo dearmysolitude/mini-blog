@@ -59,6 +59,11 @@ public class UserController {
         }
     }
 
+    @GetMapping("/update")
+    public String update() {
+        return "/member/update";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

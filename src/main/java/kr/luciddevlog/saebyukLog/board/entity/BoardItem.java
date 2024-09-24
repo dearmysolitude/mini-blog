@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import kr.luciddevlog.saebyukLog.board.dto.BoardForm;
 import kr.luciddevlog.saebyukLog.board.dto.BoardItemWithAuthorName;
+import kr.luciddevlog.saebyukLog.common.entity.BaseTimeEntity;
 import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class BoardItem {
+public class BoardItem extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,14 +31,6 @@ public class BoardItem {
 
     @Column(nullable = false, length = 3000)
     private String content;
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column
-    private LocalDateTime updatedAt;
 
     // NOTICE 인 경우 null, REVIEW 중 본글은 null 댓글은 root 글을 참조함
     @Column(name = "root_id")
@@ -72,8 +65,8 @@ public class BoardItem {
     public BoardItemWithAuthorName toItemWithAuthorName() {
         return BoardItemWithAuthorName.builder()
                 .content(this.content)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                .createdAt(this.getCreatedAt())
+                .updatedAt(this.getUpdatedAt())
                 .writerName(this.writer.getName())
                 .reCnt(this.reCnt)
                 .reLevel(this.reLevel)

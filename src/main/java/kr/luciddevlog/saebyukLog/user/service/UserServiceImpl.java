@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     public void register(RegisterFormDto form) {
         if(registered(form.getUsername())) {
-            throw new UserAlreadyExistsException("이미 존재하는 ID입니다.");
+            throw new UserAlreadyExistsException("이미 존재하는 ID 입니다.");
         }
         if(duplicatedPhoneNumber(form.getPhoneNumber())) {
             throw new UserAlreadyExistsException("이미 존재하는 연락처입니다.");
@@ -47,6 +47,14 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         userItemRepository.save(register);
+    }
+
+    public void unRegister(Long id) {
+
+    }
+
+    public void updateUserInfo(RegisterFormDto form) {
+
     }
 
 }

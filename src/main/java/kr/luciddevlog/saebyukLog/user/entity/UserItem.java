@@ -3,11 +3,14 @@ package kr.luciddevlog.saebyukLog.user.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import kr.luciddevlog.saebyukLog.common.entity.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -15,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class UserItem {
+public class UserItem extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -24,7 +27,7 @@ public class UserItem {
     @Column(nullable = false, unique = true, length = 30)
     private String username;
 
-    @Column(nullable = false, length = 60) // BCrypt 인코딩 결과는 일반적으로 60자
+    @Column(length = 60) // BCrypt 인코딩 결과는 일반적으로 60자
     private String password;
 
     @Column(nullable = false, length = 50)
@@ -35,19 +38,26 @@ public class UserItem {
     @NotBlank(message = "전화번호는 필수 입력 항목입니다.")
     private String phoneNumber;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column
-    private LocalDateTime updatedAt;
-
     @Column(nullable = false)
     private UserRole role;
 
     public boolean isAdmin() {
-        return this.role != UserRole.ROLE_ADMIN;
+        return this.role.name().equals("ROLE_ADMIN");
     }
 
+    public void updatePassword(PasswordEncoder passwordEncoder, String password) {
+        this.password = passwordEncoder.encode(password);
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
+    }
 }
