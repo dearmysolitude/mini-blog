@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-class userServiceTest {
+class UserServiceTest {
 
     UserItemRepository userItemRepository;
     EntityManager entityManager;
 
     @Autowired
-    userServiceTest(UserItemRepository userItemRepository, EntityManager entityManager) {
+    UserServiceTest(UserItemRepository userItemRepository, EntityManager entityManager) {
         this.userItemRepository = userItemRepository;
         this.entityManager = entityManager;
     }

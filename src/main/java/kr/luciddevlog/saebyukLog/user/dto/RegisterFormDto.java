@@ -29,16 +29,16 @@ public class RegisterFormDto {
     @Length(max = 50, message = "이름은 50자를 초과할 수 없습니다.")
     private String name;
 
-    @NotBlank(message = "전화번호를 입력하세요")
-    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "올바른 전화번호 형식이 아닙니다.")
-    private String phoneNumber;
+    @NotBlank(message = "이메일을 입력하세요")
+    @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "올바른 이메일 형식이 아님")
+    private String email;
 
     private UserRole role;
 
-    public RegisterFormDto(String username, String password, String phoneNumber, String name) {
+    public RegisterFormDto(String username, String password, String email, String name) {
         this.username = username;
         this.password = password;
-        this.phoneNumber = phoneNumber;
+        this.email = email;
         this.name = name;
     }
 
@@ -46,7 +46,7 @@ public class RegisterFormDto {
     public UserItem toEntity() {
         return UserItem.builder()
                 .name(this.name)
-                .phoneNumber(this.phoneNumber)
+                .email(this.email)
                 .username(this.username)
                 .password(this.password)
                 .role(this.role)
@@ -60,7 +60,7 @@ public class RegisterFormDto {
                 "username='" + username + '\'' +
                 ", password='" + (password != null ? "PRESENT" : "NULL") + '\'' +
                 ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", phoneNumber='" + email + '\'' +
                 ", role=" + role +
                 '}';
     }

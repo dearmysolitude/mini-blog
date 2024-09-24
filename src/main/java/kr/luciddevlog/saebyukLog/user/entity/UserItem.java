@@ -34,9 +34,8 @@ public class UserItem extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false, length = 20)
-    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)")
-    @NotBlank(message = "전화번호는 필수 입력 항목입니다.")
-    private String phoneNumber;
+    @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "올바른 이메일 형식이 아님")
+    private String email;
 
     @Column(nullable = false)
     private UserRole role;
@@ -45,7 +44,7 @@ public class UserItem extends BaseTimeEntity {
         return this.role.name().equals("ROLE_ADMIN");
     }
 
-    public void updatePassword(PasswordEncoder passwordEncoder, String password) {
+    public void updatePassword(String password) {
         this.password = passwordEncoder.encode(password);
     }
 
@@ -53,8 +52,8 @@ public class UserItem extends BaseTimeEntity {
         this.name = name;
     }
 
-    public void updatePhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void updateEmail(String email) {
+        this.email = email;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
