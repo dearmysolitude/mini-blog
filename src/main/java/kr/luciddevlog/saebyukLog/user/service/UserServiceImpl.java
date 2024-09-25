@@ -52,17 +52,15 @@ public class UserServiceImpl implements UserService {
 
     public void register(RegisterFormDto form) {
         if (checkForm(form)) return;
-
-        String encodedPassword = passwordEncoder.encode(form.getPassword());
-
         UserItem register = UserItem.builder()
                 .role(UserRole.ROLE_USER)
                 .email(form.getEmail())
                 .username(form.getUsername())
                 .name(form.getName())
-                .password(encodedPassword)  // 직접 인코딩된 비밀번호 설정
+                .password(form.getPassword())  // 직접 인코딩된 비밀번호 설정
                 .build();
 
+        register.encodePassword(passwordEncoder);
         userItemRepository.save(register);
     }
 
