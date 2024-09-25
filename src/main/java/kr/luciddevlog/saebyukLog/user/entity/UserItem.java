@@ -34,12 +34,13 @@ public class UserItem extends BaseTimeEntity {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "올바른 이메일 형식이 아님")
     private String email;
 
     @Column
-    @ColumnDefault("ROLE_USER")
+    @ColumnDefault("'ROLE_USER'")
+    @Convert(converter = UserRole.Converter.class)
     private UserRole role;
 
     @Column

@@ -14,4 +14,5 @@ public interface UserItemRepository extends JpaRepository<UserItem, Long> {
     UserItem findByName(String name);
     UserItem findByRefreshToken(String refreshToken);
     UserItem findBySocialTypeAndSocialId(SocialType socialType, String socialId);
+    boolean existsByUsername(String username);
 }

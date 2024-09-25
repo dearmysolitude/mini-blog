@@ -2,6 +2,7 @@ package kr.luciddevlog.saebyukLog.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import kr.luciddevlog.saebyukLog.user.exception.UserNotFoundException;
 import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class JwtServiceImpl implements JwtService{
 
     // 환경 변수 주입
