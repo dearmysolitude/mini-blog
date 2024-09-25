@@ -22,7 +22,7 @@ public class JwtServiceImpl implements JwtService{
     // 환경 변수 주입
     @Value("${jwt.secretKey}")
     private String secretKey;
-    @Value("${jwt.access.expiration")
+    @Value("${jwt.access.expiration}")
     private Long accessTokenExpirationPeriod;
     @Value("${jwt.refresh.expiration}")
     private Long refreshTokenExpirationPeriod;
@@ -38,7 +38,7 @@ public class JwtServiceImpl implements JwtService{
     private static final String BEARER = "Bearer ";
 
     private final UserItemRepository userItemRepository;
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper; // 객체 직렬화
 
     @Autowired
     public JwtServiceImpl(UserItemRepository userItemRepository, ObjectMapper objectMapper) {
