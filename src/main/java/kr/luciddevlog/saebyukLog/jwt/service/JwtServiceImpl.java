@@ -3,11 +3,15 @@ package kr.luciddevlog.saebyukLog.jwt.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import kr.luciddevlog.saebyukLog.user.exception.UserNotFoundException;
 import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class JwtServiceImpl implements JwtService{
@@ -15,7 +19,7 @@ public class JwtServiceImpl implements JwtService{
     // 환경 변수 주입
     @Value("${jwt.secretKey}")
     private String secretKey;
-    @Value("${jwt.access.expiration")
+    @Value("${jwt.access.expiration}")
     private Long accessTokenExpirationPeriod;
     @Value("${jwt.refresh.expiration}")
     private Long refreshTokenExpirationPeriod;
@@ -31,7 +35,7 @@ public class JwtServiceImpl implements JwtService{
     private static final String BEARER = "Bearer ";
 
     private final UserItemRepository userItemRepository;
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper; // 객체 직렬화
 
     @Autowired
     public JwtServiceImpl(UserItemRepository userItemRepository, ObjectMapper objectMapper) {
@@ -76,5 +80,36 @@ public class JwtServiceImpl implements JwtService{
     }
 
     //
+    @Override
+    public void sendToken(HttpServletResponse response, String accessToken, String refreshToken) throws IOException {
+
+
+    }
+
+    @Override
+    public String extractAccessToken(HttpServletRequest request) throws IOException, ServletException {
+
+        return "";
+    }
+
+    @Override
+    public String extractRefreshToken(HttpServletRequest request) throws IOException, ServletException {
+
+        return "";
+    }
+
+    @Override
+    public String extractUsername(String accessToken) {
+
+        return "";
+    }
+
+    public void setAccessTokenHeader(HttpServletResponse response, String accessToken) {
+
+
+    }
+    public void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
+
+    }
 
 }
