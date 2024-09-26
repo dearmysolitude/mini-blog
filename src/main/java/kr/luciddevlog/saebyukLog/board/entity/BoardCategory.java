@@ -5,7 +5,7 @@ import kr.luciddevlog.saebyukLog.common.enumConverterForJPA.CodedEnum;
 
 public enum BoardCategory implements CodedEnum<Integer> {
     NOTICE(1),
-    REVIEW(2);
+    NOTE(2);
 
     private final int code;
 

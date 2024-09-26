@@ -2,7 +2,6 @@ package kr.luciddevlog.saebyukLog.board.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import kr.luciddevlog.saebyukLog.board.entity.BoardCategory;
-import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import lombok.*;
 
 @Getter
@@ -34,7 +33,7 @@ public class BoardForm {
         if(category.equalsIgnoreCase("notice")) { // 대소문자 구분 없이
             this.category = BoardCategory.NOTICE;
         } else {
-            this.category = BoardCategory.REVIEW;
+            this.category = BoardCategory.NOTE;
         }
     }
 
