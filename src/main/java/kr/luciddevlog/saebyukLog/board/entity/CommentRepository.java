@@ -1,6 +1,5 @@
-package kr.luciddevlog.saebyukLog.board.repository;
+package kr.luciddevlog.saebyukLog.board.entity;
 
-import kr.luciddevlog.saebyukLog.board.entity.BoardItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

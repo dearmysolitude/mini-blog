@@ -2,13 +2,12 @@ package kr.luciddevlog.saebyukLog.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.luciddevlog.saebyukLog.user.exception.UserNotFoundException;
-import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
+import kr.luciddevlog.saebyukLog.user.entity.UserItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class JwtServiceImpl implements JwtService{
     @Value("${jwt.access.expiration}")
     private Long accessTokenExpirationPeriod;
     @Value("${jwt.refresh.expiration}")
-    private Long refreshTokenExpirationPeriod;
+    private Long refreshTokenExpirationPeriod = 3000L;
     @Value("${jwt.access.header}")
     private String accessHeader;
     @Value("${jwt.refresh.header}")

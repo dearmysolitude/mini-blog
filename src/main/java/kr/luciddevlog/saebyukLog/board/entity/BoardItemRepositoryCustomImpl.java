@@ -1,4 +1,4 @@
-package kr.luciddevlog.saebyukLog.board.repository;
+package kr.luciddevlog.saebyukLog.board.entity;
 
 import static kr.luciddevlog.saebyukLog.board.entity.QBoardItem.boardItem;
 import static kr.luciddevlog.saebyukLog.user.entity.QUserItem.userItem;
@@ -7,7 +7,6 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.luciddevlog.saebyukLog.board.dto.BoardItemWithAuthorName;
-import kr.luciddevlog.saebyukLog.board.entity.BoardCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

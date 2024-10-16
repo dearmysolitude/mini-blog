@@ -5,7 +5,7 @@ import kr.luciddevlog.saebyukLog.user.dto.RegisterFormDto;
 import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import kr.luciddevlog.saebyukLog.user.entity.UserRole;
 import kr.luciddevlog.saebyukLog.user.exception.UserAlreadyExistsException;
-import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
+import kr.luciddevlog.saebyukLog.user.entity.UserItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

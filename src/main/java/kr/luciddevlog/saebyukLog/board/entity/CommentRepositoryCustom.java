@@ -1,4 +1,4 @@
-package kr.luciddevlog.saebyukLog.board.repository;
+package kr.luciddevlog.saebyukLog.board.entity;
 
 import kr.luciddevlog.saebyukLog.board.dto.CommentItemWithAuthorName;
 

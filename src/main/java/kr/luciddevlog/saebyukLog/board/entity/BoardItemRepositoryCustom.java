@@ -1,7 +1,6 @@
-package kr.luciddevlog.saebyukLog.board.repository;
+package kr.luciddevlog.saebyukLog.board.entity;
 
 import kr.luciddevlog.saebyukLog.board.dto.BoardItemWithAuthorName;
-import kr.luciddevlog.saebyukLog.board.entity.BoardCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

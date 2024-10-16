@@ -2,7 +2,7 @@ package kr.luciddevlog.saebyukLog.user.service;
 
 import kr.luciddevlog.saebyukLog.user.entity.CustomUserDetails;
 import kr.luciddevlog.saebyukLog.user.entity.UserItem;
-import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
+import kr.luciddevlog.saebyukLog.user.entity.UserItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

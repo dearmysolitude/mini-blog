@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManager;
 import kr.luciddevlog.saebyukLog.jwt.service.JwtService;
 import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import kr.luciddevlog.saebyukLog.user.entity.UserRole;
-import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
+import kr.luciddevlog.saebyukLog.user.entity.UserItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -82,5 +82,36 @@ class JwtTest {
         //then
         assertThat(findUsername).isEqualTo(username);
         assertThat(subject).isEqualTo(ACCESS_TOKEN_SUBJECT);
+    }
+
+    @Test
+    void createRefreshToken_RefreshToken_발급() throws Exception {
+        // given, when
+        String refreshToken = jwtService.createRefreshToken();
+        DecodedJWT decodedJWT = getVerify(refreshToken);
+        String subject = decodedJWT.getSubject();
+        String username = decodedJWT.getClaim(USERNAME_CLAIM).asString();
+
+        // then
+        assertThat(subject).isEqualTo(REFRESH_TOKEN_SUBJECT);
+        assertThat(username).isNull(); // refresh token은 username없이 생성됨.
+    }
+
+    @Test
+    void updateRefreshToken_RefreshToken_업데이트() throws Exception {
+        // given
+        String refreshToken = jwtService.createRefreshToken();
+        jwtService.updateRefreshToken(username, refreshToken);
+        clear();
+        Thread.sleep(3000);
+
+        // when
+        String reIssuedRefershToken = jwtService.createRefreshToken();
+        jwtService.updateRefreshToken(username, reIssuedRefershToken);
+        clear();
+
+        // then
+        assertThat(Exception.class, () -> userItemRepository.findByRefreshToken(refreshToken).get());
+        assertThat(userItemRepository.findByRefreshToken(reIssuedRefershToken).get)
     }
 }

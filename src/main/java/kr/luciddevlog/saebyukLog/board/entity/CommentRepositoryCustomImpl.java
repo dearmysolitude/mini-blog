@@ -1,4 +1,4 @@
-package kr.luciddevlog.saebyukLog.board.repository;
+package kr.luciddevlog.saebyukLog.board.entity;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

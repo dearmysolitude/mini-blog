@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import kr.luciddevlog.saebyukLog.user.entity.UserRole;
 import kr.luciddevlog.saebyukLog.user.exception.UserNotFoundException;
-import kr.luciddevlog.saebyukLog.user.repository.UserItemRepository;
+import kr.luciddevlog.saebyukLog.user.entity.UserItemRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

@@ -1,7 +1,5 @@
-package kr.luciddevlog.saebyukLog.user.repository;
+package kr.luciddevlog.saebyukLog.user.entity;
 
-import kr.luciddevlog.saebyukLog.user.entity.SocialType;
-import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
