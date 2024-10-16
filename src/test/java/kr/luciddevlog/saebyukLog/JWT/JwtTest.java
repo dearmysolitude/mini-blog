@@ -1,4 +1,4 @@
-package kr.luciddevlog.saebyukLog.user;
+package kr.luciddevlog.saebyukLog.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

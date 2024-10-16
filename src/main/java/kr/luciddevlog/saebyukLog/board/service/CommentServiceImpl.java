@@ -57,7 +57,7 @@ public class CommentServiceImpl implements CommentService{
         if(parentId == -1) { // 새 코멘트 작성
             BoardItem comment = BoardItem.builder()
                     .rootId(rootId)
-                    .category(BoardCategory.REVIEW)
+                    .category(BoardCategory.NOTE)
                     .content(content)
                     .writer(member)
                     .reLevel(1)
@@ -89,7 +89,7 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.updateReCntForComment(rootId, index);
 
         BoardItem newComment = BoardItem.builder()
-                .category(BoardCategory.REVIEW)
+                .category(BoardCategory.NOTE)
                 .content(content)
                 .rootId(rootId)
                 .reLevel(myReLevel + 1)

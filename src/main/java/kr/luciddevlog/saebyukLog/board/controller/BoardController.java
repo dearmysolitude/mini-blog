@@ -8,7 +8,6 @@ import kr.luciddevlog.saebyukLog.board.exception.BoardRequestFailException;
 import kr.luciddevlog.saebyukLog.board.service.BoardService;
 import kr.luciddevlog.saebyukLog.board.service.CommentService;
 import kr.luciddevlog.saebyukLog.user.entity.CustomUserDetails;
-import kr.luciddevlog.saebyukLog.user.entity.UserItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class BoardController {
         if(category.equals("notice")) {
             whatCategory = BoardCategory.NOTICE;
         } else {
-            whatCategory = BoardCategory.REVIEW;
+            whatCategory = BoardCategory.NOTE;
         }
         Page<BoardItemWithAuthorName> boardList = boardService.searchContents(whatCategory, pageSize, page);
         Pagination pageInfo = boardService.makePageInfo(whatCategory, pageSize, page);
